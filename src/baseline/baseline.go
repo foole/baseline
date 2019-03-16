@@ -1,8 +1,8 @@
 package baseline
 
 import (
-    //"fmt"
-    //"os"
+    "fmt"
+    "os"
     //"path"
 )
 
@@ -34,26 +34,25 @@ func FindArtifacts(testArtifactDir string) []string {
 // through that directory to find all the tests that match the aforementioned
 // criteria
 func FindTests(testList []string) []string {
-    panic("Not yet implemented")
-    //tests := []string
-    //for _, path := range testList {
-    //    fs, err = os.Stat(path)
-    //    if err != nil {
-    //        fmt.Println(err)
-    //        return
-    //    }
-    //    switch mode := fs.Mode(); {
-    //    case mode.isDir():
-    //        // find all files in directory and call FindTests
-    //    case mode.IsRegular():
-    //        // if executable, add it to list of tests
-    //    case mode&os.ModeSymlink != 0:
-    //        // attempt to find a file or dir for this symlink and call
-    //        // FindTests on that
-    //    default:
-    //        fmt.Println(path, "is not a file or directory; will not add to tests")
-    //    }
-    //}
+    var tests []string
+    for _, path := range testList {
+        fs, err := os.Stat(path)
+        if err != nil {
+            fmt.Println(err)
+        }
+        switch mode := fs.Mode(); {
+        case mode.IsDir():
+            // find all files in directory and call FindTests
+        case mode.IsRegular():
+            // if executable, add it to list of tests
+        case mode&os.ModeSymlink != 0:
+            // attempt to find a file or dir for this symlink and call
+            // FindTests on that
+        default:
+            fmt.Println(path, "is not a file or directory; will not add to tests")
+        }
+    }
+    return tests
 }
 
 // Shell out and run a single test. Collect STDOUT, STDERR, diff, and
