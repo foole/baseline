@@ -26,7 +26,7 @@ type Baseline struct {
 // files in that directory. Return an array of absolute paths to the
 // artifacts.
 func FindArtifacts(testArtifactDir string) []string {
-    panic("Not yet implemented)")
+    panic("Not yet implemented")
 }
 
 // Given a list of tests/directories, find all the executable tests and return
@@ -38,7 +38,7 @@ func FindTests(testList []string) []string {
     for _, path := range testList {
         fs, err := os.Stat(path)
         if err != nil {
-            fmt.Println(err)
+            panic(fmt.Sprintf("%s", err))
         }
         switch mode := fs.Mode(); {
         case mode.IsDir():
