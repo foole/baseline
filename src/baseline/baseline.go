@@ -22,9 +22,17 @@ type Baseline struct {
     metadata map[string]string
 }
 
+// Given the root artifact directory, recurse through it and find all the
+// files in that directory. Return an array of absolute paths to the
+// artifacts.
 func FindArtifacts(testArtifactDir) []string {
+    panic("Not yet implemented)")
 }
 
+// Given a list of tests/directories, find all the executable tests and return
+// a new list of those tests. If a directory is encountered, we will recurse
+// through that directory to find all the tests that match the aforementioned
+// criteria
 func FindTests(testList) []string {
     panic("Not yet implemented")
     tests := []string
@@ -48,10 +56,24 @@ func FindTests(testList) []string {
     }
 }
 
+// Shell out and run a single test. Collect STDOUT, STDERR, diff, and
+// artifacts. Return a struct with the following:
+//   - name of test
+//   - raw STDOUT
+//   - raw STDERR
+//   - inline diff
+//   - array of artifacts (these will be files on the filesystem)
+//   - test status:
+//     - pass
+//     - fail
+//     - no baseline
+//     - not executable
 func (b *Baseline) RunTest() string {
     panic("Not yet implemented")
 }
 
+// Truncate the path to the test to 30 characters. The test is truncated from
+// the end of the string (since that's where the filename is)
 func TruncateTestName(test string) string {
     panic("Not yet implemented")
 }
