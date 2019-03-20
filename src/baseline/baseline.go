@@ -40,15 +40,11 @@ func FindTests(testList []string) []string {
         if err != nil {
             panic(fmt.Sprintf("%s", err))
         }
-        switch mode := fs.Mode(); {
-        case mode.IsDir():
-            // find all files in directory and call FindTests
-        case mode.IsRegular():
-            // if executable, add it to list of tests
-        case mode&os.ModeSymlink != 0:
-            // attempt to find a file or dir for this symlink and call
-            // FindTests on that
-        default:
+        // If it's a directory we need to walk it and find all the executable
+        // files
+        if fs.IsDir() {
+        } else if fs.Mode() & 0555 == 0555 {
+        } else {
             fmt.Println(path, "is not a file or directory; will not add to tests")
         }
     }
